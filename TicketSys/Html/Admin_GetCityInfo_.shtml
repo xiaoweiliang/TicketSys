@@ -1,0 +1,41 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="/TicketSys/Public/css/city.css" rel="stylesheet" />
+<link href="/TicketSys/Public/css/table.css" rel="stylesheet" />
+</head>
+<body  style="background:rgb(245,240,233)">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="/TicketSys/Public/css/head.css" rel="stylesheet" />
+</head>
+<div id="seheadmain_div">
+	<a href="javascript:void(0)">地铁管理系统</a>
+	<a href="javascript:void(0)"  style="font-size:15px;margin-left:-2px;">-西安地铁线路管理</a>	
+</div>
+</html>
+<table border="1" >
+		<tr id="bartr">
+			<th>地铁线号</th>
+			<th>地铁运行状况</th>
+			<th>操作</th>
+		</tr>
+		<tr>
+				<td>1</td>
+				<td>1</td>
+				<td>修改</td>
+			</tr><tr>
+				<td>2</td>
+				<td>1</td>
+				<td>修改</td>
+			</tr><tr>
+				<td>3</td>
+				<td>1</td>
+				<td>修改</td>
+			</tr><tr>
+				<td>4</td>
+				<td>1</td>
+				<td>修改</td>
+			</tr>	</table></body>
+</html>

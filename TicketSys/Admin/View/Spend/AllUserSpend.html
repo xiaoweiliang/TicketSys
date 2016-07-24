@@ -1,0 +1,94 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="__PUBLIC__/css/city.css" rel="stylesheet" />
+<link href="__PUBLIC__/css/table.css" rel="stylesheet" />
+<link href="__PUBLIC__/css/public.css" rel="stylesheet" />
+<script src="__PUBLIC__/js/jquery-1.8.3.js"></script>
+<script language="javascript">
+$(document).ready(function()
+{
+	$(".publicadd").click(function()
+	{
+	 	$("#add_div").css("display","block");
+	});
+	$("#closebtn").click(function()
+	{
+		$("#add_div").css("display","none");
+	})
+});
+function checkform()
+{
+	var metro=document.getElementById("metro_id").value;
+	if(metro>0)
+	{
+		return true;
+	}
+	return false;	
+}
+</script>
+</head>
+<body  style="background:rgb(245,240,233)">
+<include file="public:se_head"/>
+<a id="publicadd" class="publicadd">添加消费记录</a>
+<if condition="$userid eq ''">
+<form method="post" onsubmit="return checkaddform()" action="__APP__/index/index/m/Spend/action/GetAllUserSpend">
+<else/>
+<form method="post" onsubmit="return checkaddform()" action="__APP__/index/index/m/Spend/action/GetUserSpend">
+</if>
+<select class="searcha" name="type">
+	<if condition="$type eq -1">
+		<option value="-1"   selected="true">所有消费记录</option>
+	<else/>
+		<option value="-1"  >所有消费记录</option>
+	</if>
+	<if condition="$type eq 0">
+		<option value="0"  selected="true">买票</option>
+	<else/>
+		<option value="0" >买票</option>
+	</if>
+	<if condition="$type eq 1">
+		<option value="1"  selected="true">退票</option>
+	<else/>
+		<option value="1" >退票</option>
+	</if>
+	<if condition="$type eq 2">
+		<option value="2" selected="true">补票</option>
+	<else/>
+		<option value="2">补票</option>
+	</if>
+	<if condition="$type eq 3">
+		<option value="3" selected="true">充值</option>
+	<else/>
+		<option value="3">充值</option>
+	</if>
+</select>
+<input type="submit" id="publicadd"  value="检索" />
+</form>
+<if condition="count($AllSpendList) neq 0">
+	<table border="1" >
+		<tr id="bartr">
+			<th>消费记录号</th>
+			<th>用户id</th>
+			<th>金额</th>
+			<th>生成时间</th>
+			<th>消费类型</th>
+			<th>操作</th>
+		</tr>
+		<foreach name="AllSpendList" item="item_spend">
+			<tr>
+				<td>{$item_spend.id}</td>
+				<td>{$item_spend.user_id}</td>
+				<td>{$item_spend.money_num}</td>
+				<td>{$item_spend.time}</td>
+				<td>{$item_spend.money_type}</td>
+				<td>
+				<a href="__APP__/index/index/m/Spend/action/DelSpend/userid/{$item_spend.user_id}/spendid/{$item_spend.id}">删除</a>
+				</td>
+			</tr>
+		</foreach>
+	</table>
+	<include file="public:page"/>
+</if>
+</body>
+</html>

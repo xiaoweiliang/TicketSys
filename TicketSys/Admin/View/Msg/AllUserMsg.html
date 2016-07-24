@@ -1,0 +1,79 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="__PUBLIC__/css/city.css" rel="stylesheet" />
+<link href="__PUBLIC__/css/table.css" rel="stylesheet" />
+<link href="__PUBLIC__/css/public.css" rel="stylesheet" />
+<script src="__PUBLIC__/js/jquery-1.8.3.js"></script>
+<script language="javascript">
+$(document).ready(function()
+{
+	$(".publicadd").click(function()
+	{
+	 	$("#add_div").css("display","block");
+	});
+	$("#closebtn").click(function()
+	{
+		$("#add_div").css("display","none");
+	})
+});
+function checkform()
+{
+	var userid=document.getElementById("add_user_id").value;
+	var content=document.getElementById("content").value;
+	if(userid>0&&content!="")
+	{
+		return true;
+	}
+	return false;	
+}
+</script>
+</head>
+<body  style="background:rgb(245,240,233)">
+<include file="public:se_head"/>
+<a id="publicadd" class="publicadd">添加消息记录</a>
+<if condition="count($AllMsgList) neq 0">
+	<table border="1" >
+		<tr id="bartr">
+			<th>消息记录号</th>
+			<th>用户id</th>
+			<th>消息内容</th>
+			<th>生成时间</th>
+			<th>操作</th>
+		</tr>
+		<foreach name="AllMsgList" item="item_msg">
+			<tr>
+				<td>{$item_msg.id}</td>
+				<td>{$item_msg.user_id}</td>
+				<td>{$item_msg.message}</td>
+				<td>{$item_msg.time}</td>
+				<td>
+				<a href="__APP__/index/index/m/Message/action/DelUserMsg/userid/{$item_msg.user_id}/msgid/{$item_msg.id}">删除</a>
+				</td>
+			</tr>
+		</foreach>
+	</table>
+	<include file="public:page"/>
+</if>
+<center>
+<div id="add_div">
+	<div id="add_top"><a  id="closebtn" ><img src="__PUBLIC__/images/admin/close0.png"></a></div>
+	<form action="__APP__/index/index/m/Message/action/AddMsg"   method="POST" onsubmit="return checkform()">
+	<table id="add_table"  border="1">
+		<tr>
+			<th>用户id</th>
+			<td><input type="text" name="user_id" id="add_user_id"  value="{$userid}"/></td>
+		</tr>
+		<tr>
+			<th>消息内容</th>
+			<td><input type="text" name="content" id="content" /></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="提交" ></td>
+		</tr>
+	</table>
+	</form>
+<div>
+</center>
+</body>
+</html>

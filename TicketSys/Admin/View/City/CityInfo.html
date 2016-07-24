@@ -1,0 +1,82 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="__PUBLIC__/css/city.css" rel="stylesheet" />
+<link href="__PUBLIC__/css/table.css" rel="stylesheet" />
+<link href="__PUBLIC__/css/public.css" rel="stylesheet" />
+<script src="__PUBLIC__/js/jquery-1.8.3.js"></script>
+<script language="javascript">
+$(document).ready(function()
+{
+	$(".publicadd").click(function()
+	{
+	 	$("#add_div").css("display","block");
+	});
+	$("#closebtn").click(function()
+	{
+		$("#add_div").css("display","none");
+	})
+});
+function checkform()
+{
+	var metro=document.getElementById("metro_id").value;
+	if(metro>0)
+	{
+		return true;
+	}
+	return false;	
+}
+</script>
+</head>
+<body  style="background:rgb(245,240,233)">
+<include file="public:se_head"/>
+<a id="publicadd" class="publicadd">添加线路</a>
+<if condition="count($metro_list) neq 0">
+	<table border="1" >
+		<tr id="bartr">
+			<th>地铁线号</th>
+			<th>地铁运行状况</th>
+			<th>操作</th>
+		</tr>
+		<foreach name="metro_list" item="item_metro">
+			<tr>
+				<td>{$item_metro.metro_id}</td>
+				<td>
+				<if condition="$item_metro.state eq 1">
+					<a href="__APP__/index/index/m/City/action/ChangeState/mtid/{$item_metro.id}/state/1"><img src="__PUBLIC__/images/admin/yes.gif"/></a>
+				<else/>
+					<a href="__APP__/index/index/m/City/action/ChangeState/mtid/{$item_metro.id}/state/0"><img src="__PUBLIC__/images/admin/no.gif"/></a>
+				</if>
+				</td>
+				<td>
+				<a href="__APP__/index/index/m/Metro/action/GetMetroInfo/mtid/{$item_metro.id}/metrono/{$item_metro.metro_id}/city/{$city}/cityid/{$cityid}">查看详情</a>
+				<a href="__APP__/index/index/m/Metro/action/DelMetro/mtid/{$item_metro.id}/cityid/{$cityid}">删除</a>
+				</td>
+			</tr>
+		</foreach>
+	</table>
+	<include file="public:page"/>
+</if>
+<center>
+<div id="add_div">
+	<div id="add_top"><a  id="closebtn" ><img src="__PUBLIC__/images/admin/close0.png"></a></div>
+	<form action="__APP__/index/index/m/Metro/action/AddMetro"   method="POST" onsubmit="return checkform()">
+	<input type="hidden" value="{$cityid}" name="parent_id"/>
+	<table id="add_table"  border="1">
+		<tr>
+			<th>地铁线号</th>
+			<td><input type="text" name="metro_id" id="metro_id" /></td>
+		</tr>
+		<tr>
+			<th>是否启用</th>
+			<td><input type="radio" name="state"  checked="true"  value="1"/>是<input type="radio" name="state"  value="0" />否</td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="提交" ></td>
+		</tr>
+	</table>
+	</form>
+<div>
+</center>
+</body>
+</html>

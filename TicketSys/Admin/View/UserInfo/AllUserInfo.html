@@ -1,0 +1,119 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="__PUBLIC__/css/city.css" rel="stylesheet" />
+<link href="__PUBLIC__/css/table.css" rel="stylesheet" />
+<link href="__PUBLIC__/css/public.css" rel="stylesheet" />
+<script src="__PUBLIC__/js/jquery-1.8.3.js"></script>
+<script language="javascript">
+$(document).ready(function()
+{
+	$(".publicadd").click(function()
+	{
+		$("#add_div").css("display","block");
+	});
+	$("#closebtn").click(function()
+	{
+		$("#add_div").css("display","none");
+	})
+});
+function checkform()
+{
+	var phone=document.getElementById("add_phone_no").value;
+	var key=document.getElementById("key").value;
+	var legth=key.length;
+	if(phone!=''&&key!=''&&legth==6)
+	{
+		return true;
+	}
+	else
+	{
+		alert("格式错误");
+		return false;	
+	}
+	
+}
+function checkaddform()
+{
+	var phone=document.getElementById("phoneno").value;
+	var user_id=document.getElementById("user_id").value;
+	if(phone!=''||user_id!='')
+	{
+		return true;
+	}
+	return false;	
+}
+</script>
+</head>
+<body  style="background:rgb(245,240,233)">
+<include file="public:se_head"/>
+<a id="publicadd" class="publicadd">添加用户</a>
+<form method="post" onsubmit="return checkaddform()" action="__APP__/index/index/m/UserInfo/action/GetUserInfo">
+<a class="searcha">手机号码:</a><input type="text" id="phoneno" name="phone_no" class="searcha"/>
+<a class="searcha">用户id:</a><input type="text" id="user_id" name="user_id" class="searcha"/>
+<input type="submit" id="publicadd"  value="检索" />
+</form>
+<if condition="count($AllUserList) neq 0">
+	<table border="1" >
+		<tr id="bartr">
+			<th>用户id</th>
+			<th>手机号码</th>
+			<th>昵称</th>
+			<th>用户余额</th>
+			<th>头像</th>
+			<th>性别</th>
+			<th>注册时间</th>
+			<th>操作</th>
+		</tr>
+		<foreach name="AllUserList" item="item_user">
+			<tr>
+				<td>{$item_user.id}</td>
+				<td>{$item_user.phone_no}</td>
+				<td>{$item_user.nickname}</td>
+				<td>{$item_user.user_money}</td>
+				<td>{$item_user.id}</td>
+				<td>
+					<if condition="$item_user.user_sex eq 0">
+						保密
+					<elseif  condition="$item_user.user_sex eq 1"/>
+						男
+					<else/>
+						女
+					</if>
+				</td>
+				<td>{$item_user.register_time}</td>	
+				<td>
+				<a href="__APP__/index/index/m/UserInfo/action/GetUserInfo/user_id/{$item_user.id}">详细信息</a>
+				<a href="__APP__/index/index/m/Auto/action/GetUserAuto/userid/{$item_user.id}">自动票</a>
+				<a href="__APP__/index/index/m/Spend/action/GetUserSpend/userid/{$item_user.id}">消费</a>
+				<a href="__APP__/index/index/m/Order/action/GetUserOrder/userid/{$item_user.id}">订单</a>
+				<a href="__APP__/index/index/m/Message/action/GetUserMsg/userid/{$item_user.id}">消息</a>
+				<a href="__APP__/index/index/m/FeedBack/action/GetUserFB/userid/{$item_user.id}">反馈</a>
+				</td>
+			</tr>
+		</foreach>
+	</table>
+	<include file="public:page"/>
+</if>
+<center>
+<div id="add_div">
+	<div id="add_top"><a  id="closebtn" ><img src="__PUBLIC__/images/admin/close0.png"></a></div>
+	<form action="__APP__/index/index/m/UserInfo/action/AddUser"   method="POST" onsubmit="return checkform()">
+	<table id="add_table"  border="1">
+		<tr>
+			<th>手机号码</th>
+			<td><input type="text" name="phone_no" id="add_phone_no" /></td>
+		</tr>
+		<tr>
+			<th>6位密码</th>
+			<td><input type="text" name="key" id="key" /></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="提交" ></td>
+		</tr>
+	</table>
+	</form>
+<div>
+</center>
+</body>
+</html>

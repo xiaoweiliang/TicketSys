@@ -1,0 +1,91 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="__PUBLIC__/css/city.css" rel="stylesheet" />
+<link href="__PUBLIC__/css/table.css" rel="stylesheet" />
+<link href="__PUBLIC__/css/public.css" rel="stylesheet" />
+<script src="__PUBLIC__/js/jquery-1.8.3.js"></script>
+<script language="javascript">
+$(document).ready(function()
+{
+	$(".publicadd").click(function()
+	{
+	 	$("#add_div").css("display","block");
+	});
+	$("#closebtn").click(function()
+	{
+		$("#add_div").css("display","none");
+	})
+});
+function checkform()
+{
+	var metro=document.getElementById("metio").value;
+	if(metro!=null)
+	{
+		return true;
+	}
+	return false;	
+}
+</script>
+</head>
+<body  style="background:rgb(245,240,233)">
+<include file="public:se_head"/>
+<a id="publicadd"  href="__APP__/index/index/m/City/action/GetCityInfo/cityid/{$cityid}">《返回</a>
+<a id="publicadd"  class="publicadd" >添加站点</a>
+<if condition="count($site_list) neq 0">
+	<table border="1" >
+		<tr id="bartr">
+			<th>站点号</th>
+			<th>站点名称</th>
+			<th>站点运行状况</th>
+			<th>详细信息</th>
+			<th>操作</th>
+		</tr>
+		<foreach name="site_list" item="item_site">
+			<tr>
+				<td>{$item_site.id}</td>
+				<td>{$item_site.name}</td>
+				<td>
+				<if condition="$item_site.is_run eq 1">
+					<a href="__APP__/index/index/m/Metro/action/ChangeState/siteid/{$item_site.id}/state/1"><img src="__PUBLIC__/images/admin/yes.gif"/></a>
+				<else/>
+					<a href="__APP__/index/index/m/Metro/action/ChangeState/siteid/{$item_site.id}/state/0"><img src="__PUBLIC__/images/admin/no.gif"/></a>
+				</if>
+				</td>
+				<td>{$item_site.detaile_info}</td>
+				<td>
+				<a href="__APP__/index/index/m/Site/action/DelSite/siteid/{$item_site.id}/mtid/{$mtid}">删除</a>
+				<a>修改</a>
+				</td>
+			</tr>
+		</foreach>
+	</table>
+	<include file="public:page"/>
+</if>
+<center>
+<div id="add_div">
+	<div id="add_top"><a  id="closebtn" ><img src="__PUBLIC__/images/admin/close0.png"></a></div>
+	<form action="__APP__/index/index/m/Site/action/AddSite"   method="POST" onsubmit="return checkform()">
+	<input type="hidden" value="{$mtid}" name="parent_id"/>
+	<table id="add_table"  border="1">
+		<tr>
+			<th>站点名称</th>
+			<td><input type="text" name="name" id="metio" /></td>
+		</tr>
+		<tr>
+			<th>是否启用</th>
+			<td><input type="radio" name="is_run"  checked="true"  value="1"/>是<input type="radio" name="is_run"  value="0" />否</td>
+		</tr>
+		<tr>
+			<th>其他信息</th>
+			<td><textarea name="detaile_info" id="detaile_info"></textarea></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="提交" ></td>
+		</tr>
+	</table>
+	</form>
+<div>
+</center>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="__PUBLIC__/css/city.css" rel="stylesheet" />
+<link href="__PUBLIC__/css/table.css" rel="stylesheet" />
+<link href="__PUBLIC__/css/public.css" rel="stylesheet" />
+<script src="__PUBLIC__/js/jquery-1.8.3.js"></script>
+<script language="javascript">
+$(document).ready(function()
+{
+	$(".publicadd").click(function()
+	{
+	 	$("#add_div").css("display","block");
+	});
+	$("#closebtn").click(function()
+	{
+		$("#add_div").css("display","none");
+	})
+});
+
+
+function checkform()
+{
+	var user_id=document.getElementById("user_id").value;
+	var days=document.getElementById("add_days").value;
+	if(user_id>0&&days>0)
+	{
+		return true;
+	}
+	return false;	
+}
+</script>
+</head>
+<body  style="background:rgb(245,240,233)">
+<include file="public:se_head"/>
+<form method="post"  action="__APP__/index/index/m/User/action/GetAdminAccount">
+<input type="text" class="searcha"  id="user_id" name="userid"/>
+<input type="submit" id="publicadd"  value="检索" />
+</form>
+<if condition="count($AllAccountList) neq 0">
+	<table border="1" >
+		<tr id="bartr">
+			<th>记录号</th>
+			<th>用户id</th>
+			<th>操作类型</th>
+			<th>时间</th>
+			<th>详细信息</th>
+		</tr>
+		<foreach name="AllAccountList" item="item_account">
+			<tr>
+				<td>{$item_account.id}</td>
+				<td>{$item_account.admin_id}</td>
+				<td>{$item_account.op_name}</td>
+				<td>{$item_account.op_time}</td>
+				<td>{$item_account.detaile_info}</td>
+				
+			</tr>
+		</foreach>
+	</table>
+	<include file="public:page"/>
+</if>
+</body>
+</html>

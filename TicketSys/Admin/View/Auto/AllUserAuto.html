@@ -1,0 +1,149 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="__PUBLIC__/css/city.css" rel="stylesheet" />
+<link href="__PUBLIC__/css/table.css" rel="stylesheet" />
+<link href="__PUBLIC__/css/public.css" rel="stylesheet" />
+<script src="__PUBLIC__/js/jquery-1.8.3.js"></script>
+<script language="javascript">
+$(document).ready(function()
+{
+	$(".publicadd").click(function()
+	{
+	 	$("#add_div").css("display","block");
+	});
+	$("#closebtn").click(function()
+	{
+		$("#add_div").css("display","none");
+	})
+});
+function UpdateChange(value)
+{
+	var day=document.getElementById("add_days");
+	var days=0;
+	if(value==0)              //周票
+		days=7;
+	else if(value==1)
+		days=30;
+	else
+		days='';
+	day.value=days;
+}
+
+function checkform()
+{
+	var user_id=document.getElementById("user_id").value;
+	var days=document.getElementById("add_days").value;
+	if(user_id>0&&days>0)
+	{
+		return true;
+	}
+	return false;	
+}
+</script>
+</head>
+<body  style="background:rgb(245,240,233)">
+<include file="public:se_head"/>
+<a id="publicadd" class="publicadd">添加自动票</a>
+<if condition="$userid eq ''">
+<form method="post"  action="__APP__/index/index/m/Auto/action/GetAllUserAuto">
+<else/>
+<form method="post"  action="__APP__/index/index/m/Auto/action/GetUserAuto">
+</if>
+<select class="searcha" name="type">
+	<if condition="$type eq -1">
+		<option value="-1"   selected="true">所有票种</option>
+	<else/>
+		<option value="-1"  >所有票种</option>
+	</if>
+	<if condition="$type eq 0">
+		<option value="0"  selected="true">周票</option>
+	<else/>
+		<option value="0" >周票</option>
+	</if>
+	<if condition="$type eq 1">
+		<option value="1"  selected="true">月票</option>
+	<else/>
+		<option value="1" >月票</option>
+	</if>
+	<if condition="$type eq 2">
+		<option value="2" selected="true">其他</option>
+	<else/>
+		<option value="2">其他</option>
+	</if>
+</select>
+<input type="submit" id="publicadd"  value="检索" />
+</form>
+<if condition="count($AllAutoList) neq 0">
+	<table border="1" >
+		<tr id="bartr">
+			<th>自动票记录号</th>
+			<th>用户id</th>
+			<th>票类型</th>
+			<th>天数</th>
+			<th>生成时间</th>
+			<th>起作用时间</th>
+			<th>操作</th>
+		</tr>
+		<foreach name="AllAutoList" item="item_auto">
+			<tr>
+				<td>{$item_auto.id}</td>
+				<td>{$item_auto.user_id}</td>
+				<td>{$item_auto.auto_type}</td>
+				<td>
+					<if condition="$item_auto.auto_type eq  0">
+					7
+					<elseif condition="$item_auto.auto_type eq 1"/>
+					30
+					<else/>
+					{$item_auto.days}
+					</if>
+				</td>
+				<td>{$item_auto.time}</td>
+				<td>
+					<if condition="$item_auto.work_time eq 0">
+					已起作用
+					<else/>
+					{$item_auto.work_time}
+					</if>
+				</td>
+				<td>
+				<a href="__APP__/index/index/m/Auto/action/DelUserAuto/userid/{$item_auto.user_id}/autoid/{$item_auto.id}">删除</a>
+				</td>
+			</tr>
+		</foreach>
+	</table>
+	<include file="public:page"/>
+</if>
+<center>
+<div id="add_div">
+	<div id="add_top"><a  id="closebtn" ><img src="__PUBLIC__/images/admin/close0.png"></a></div>
+	<form action="__APP__/index/index/m/Auto/action/AddAuto"   method="POST" onsubmit="return checkform()">
+	<table id="add_table"  border="1">
+		<tr>
+			<th>用户id</th>
+			<td><input type="text" name="user_id" id="add_user_id"  value="{$userid}"/></td>
+		</tr>
+		<tr>
+			<th>消息内容</th>
+			<td>
+				<select name="type" onchange="UpdateChange(this.value)">
+					<option value="0">周票</option>
+					<option value="1">月票</option>
+					<option value="2">其他</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>天数</th>
+			<td><input type="text" name="days" id="add_days"  value="7"/></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="提交" ></td>
+		</tr>
+	</table>
+	</form>
+<div>
+</center>
+</body>
+</html>

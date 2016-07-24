@@ -1,0 +1,63 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="__PUBLIC__/css/login.css" rel="stylesheet" />
+<script src="__PUBLIC__/js/jquery-1.8.3.js"></script>
+<script language="javascript">
+$(document).ready(function()
+{
+	$("#child_div3").click(function()
+	{
+		if($("#login_name").val()!=""&&$("#login_key").val()!=""&&$("#login_key").val().length==6)
+		{
+			var data={"name":$("#login_name").val(),"key":$("#login_key").val()};
+			$.ajax({
+				url:"__APP__/index/index/m/User/action/cklogin",
+				type:"post",
+				data:data,
+				dataType:"json",
+				success:function(data)
+				{
+					if(data.is_ok==1||data.is_ok==2)
+					{
+						window.location='__APP__/home/index';
+					}
+					if(data.is_ok==0)
+					{
+						alert("登陆失败");
+					}
+				},
+				error:function()
+				{
+					alert("服务器不给力或者网络异常");
+				}
+			});
+		}
+		else
+		{
+			alert("输入格式有误");
+		}
+	});
+});
+</script>
+</head>
+<body>
+<div id="main_div">
+	<div id="child_div1">
+		 <b>登录 </b>
+	</div>
+	<div id="child_div2">
+		<div id="child_div2_1">
+			<b>账号:</b><input type="text" name="name" id="login_name"/>
+		</div>
+		<div id="child_div2_1">
+			<b>密码:</b><input type="text" name="key" id="login_key"/>
+		</div>
+	</div>
+	<div id="">
+		<input  type="button" id="child_div3" value="登录"/>
+	</div>
+</div>
+
+</body>
+</html>

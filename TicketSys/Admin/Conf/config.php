@@ -1,0 +1,36 @@
+<?php
+return array(
+	array(
+	    'city_list'=>"城市列表",
+        'metro_info'=>"地铁线路信息",
+        'site_info'=>"地铁站点信息",
+        'user_manager'=>"用户管理",
+        'user_info'=>"用户信息",
+        'all_user_order'=>"用户订单",
+        'all_user_spend'=>"用户消费",
+        'all_user_auto'=>"用户自动票",
+        'all_user_message'=>"用户消息",
+        'all_user_feedback'=>"用户反馈",
+        'user_order'=>"我的订单",
+        'user_spend'=>"我的消费",
+        'user_auto'=>"我的自动票",
+        'user_message'=>"我的消息",
+        'user_feedback'=>"我的反馈",
+	    ),
+    array(
+        'city_list'=>"City",
+        'metro_info'=>"Metro",
+        'site_info'=>"Site",
+        'user_info'=>"UserInfo/action/GetAllUser",
+        'all_user_order'=>"Order/action/GetAllUserOrder/TP/1",
+        'all_user_spend'=>"Spend/action/GetAllUserSpend/TP/1",
+        'all_user_auto'=>"Auto/action/GetAllUserAuto/TP/1",
+        'all_user_message'=>"Message/action/GetAllUserMsg",
+        'all_user_feedback'=>"FeedBack/action/GetAllUserFB",
+        'user_order'=>"Order/action/GetUserOrder",
+        'user_spend'=>"Spend/action/GetUserSpend",
+        'user_auto'=>"Auto/action/GetUserAuto",
+        'user_message'=>"Message/action/GetUserMsg",
+        'user_feedback'=>"FeedBack/action/GetUserFB"
+        )
+);

@@ -1,0 +1,31 @@
+[ 2016-07-21T11:17:12+08:00 ] ::1 /TicketSys/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000024s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000505s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001300s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001424s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000091s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000280s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.097304s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.097448s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.014606s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.014712s ]
+
+[ 2016-07-21T11:17:19+08:00 ] ::1 /TicketSys/index.php/index/index/m/User/action/cklogin
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000026s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000634s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001185s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001316s ]
+SQL: SHOW COLUMNS FROM `tp_adminuser` [ RunTime:0.0726s ]
+SQL: SHOW COLUMNS FROM `tp_adminuser` [ RunTime:0.0045s ]
+ERR: 1054:Unknown column 'user_key' in 'where clause'
+ [ SQL语句 ] : SELECT `id` FROM `tp_adminuser` WHERE ( name='admin' and user_key='c78b6663d47cfbdb4d65ea51c104044e' ) 
+ERR: 1054:Unknown column 'user_key' in 'where clause'
+ [ SQL语句 ] : SELECT `id` FROM `tp_adminuser` WHERE ( name='admin' and user_key='c78b6663d47cfbdb4d65ea51c104044e' ) 
+

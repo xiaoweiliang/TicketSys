@@ -1,0 +1,20 @@
+@CHARSET "UTF-8";
+html
+{
+	font: 12px black 微软雅黑;
+}
+#bartr
+{
+	height:30px;
+}
+table
+{
+	border-collapse: collapse;
+    width: 98%;
+	margin:10px;
+	border:1px solid rgb(74,71,71);
+}
+td,tr{
+	text-align:center;
+	height:30px;
+}

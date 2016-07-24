@@ -1,0 +1,57 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="__PUBLIC__/css/city.css" rel="stylesheet" />
+<link href="__PUBLIC__/css/table.css" rel="stylesheet" />
+<link href="__PUBLIC__/css/public.css" rel="stylesheet" />
+<script src="__PUBLIC__/js/jquery-1.8.3.js"></script>
+<script language="javascript">
+$(document).ready(function()
+{
+	$(".publicadd").click(function()
+	{
+	 	$("#add_div").css("display","block");
+	});
+	$("#closebtn").click(function()
+	{
+		$("#add_div").css("display","none");
+	})
+});
+function checkform()
+{
+	var metro=document.getElementById("metro_id").value;
+	if(metro>0)
+	{
+		return true;
+	}
+	return false;	
+}
+</script>
+</head>
+<body  style="background:rgb(245,240,233)">
+<include file="public:se_head"/>
+<if condition="count($AllFBList) neq 0">
+	<table border="1" >
+		<tr id="bartr">
+			<th>反馈记录号</th>
+			<th>用户id</th>
+			<th>反馈内容</th>
+			<th>生成时间</th>
+			<th>操作</th>
+		</tr>
+		<foreach name="AllFBList" item="item_FB">
+			<tr>
+				<td>{$item_FB.id}</td>
+				<td>{$item_FB.user_id}</td>
+				<td>{$item_FB.content}</td>
+				<td>{$item_FB.time}</td>
+				<td>
+				<a href="__APP__/index/index/m/FeedBack/action/DelUserFB/userid/{$item_FB.user_id}/fbid/{$item_FB.id}">删除</a>
+				</td>
+			</tr>
+		</foreach>
+	</table>
+	<include file="public:page"/>
+</if>
+</body>
+</html>

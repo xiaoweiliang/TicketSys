@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="__PUBLIC__/css/left.css" rel="stylesheet" />
+<script src="__PUBLIC__/js/jquery-1.8.3.js"></script>
+<script language="javascript">
+$(document).ready(function()
+{
+	$("#clearcache").click(function()
+	{
+		var data={"action":"clear_cache"};
+		$.ajax({
+			url:"__APP__/index/index/m/User/action/ClearCache",
+			type:"post",
+			data:data,
+			dataType:"json",
+			success:function(data)
+			{
+				if(data.is_ok==1||data.is_ok==2)
+				{
+					alert("清空缓存成功");
+				}
+				if(data.is_ok==0)
+				{
+					alert("清空缓存失败");
+				}
+			},
+			error:function()
+			{
+				alert("服务器不给力或者网络异常");
+			}
+		});
+	});
+});
+</script>
+</head>
+<body>
+<div id="main_left" >
+	<div id="left_top">
+		<div id="top_left">
+			<img src="__PUBLIC__/images/admin/admin.jpg"  />
+		</div>
+		<div id="top_right">
+			<if condition="$user_name neq  ''">
+				<p>{$user_name}</p>
+				<a href="__APP__/index/index/m/User/action/loginout" target="_top">退出</a>
+				<a href="javascript:void(0)" 	id="clearcache">清除缓存</a>
+			<else/>
+				<p>请登录</p>
+			</if>
+		</div>
+	</div>
+	<div id="left_bt">
+		<div>
+			<if condition="$primary eq 1">
+			<a href="__APP__/index/index/m/User/action/GetAdminActionAccount" id="a" target="right_iframe"><li>管理员操作记录</li></a>
+			</if>
+			<foreach name="top_action" item="itemaction">
+					<a href="javascript:void(0)"  id="topa"  ><li>{$rules[0][$itemaction['action_name']]}</li></a>
+					<if condition="$itemaction.id eq 1">
+						<div style=";">
+							<foreach name="city" item="item_city">
+									<a href="__APP__/index/index/m/City/action/GetCityInfo/cityid/{$item_city['id']}" id="a" target="right_iframe"><li>{$item_city['city_name']}</li></a>
+							</foreach>
+						</div>
+					</if>
+					<if condition="$itemaction.id neq 1">
+						<div style=";">
+							<foreach name="child_action" item="item_action">
+								<if condition="$item_action.parent_id eq $itemaction['id']">
+									<a href="__APP__/index/index/m/{$rules[1][$item_action['action_name']]}" id="a"  target="right_iframe"><li>{$rules[0][$item_action['action_name']]}</li></a>
+									</if>
+							</foreach>
+						</div>
+		 			</if>
+			 </foreach>
+		 </div>
+	</div>
+</div>
+</body>
+</html>

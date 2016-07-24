@@ -1,0 +1,79 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="__PUBLIC__/css/city.css" rel="stylesheet" />
+<link href="__PUBLIC__/css/table.css" rel="stylesheet" />
+<link href="__PUBLIC__/css/public.css" rel="stylesheet" />
+<script src="__PUBLIC__/js/jquery-1.8.3.js"></script>
+<script language="javascript">
+$(document).ready(function()
+{
+	$("#closebtn").click(function()
+	{
+		$("#add_div").css("display","none");
+	})
+});
+</script>
+</head>
+<body  style="background:rgb(245,240,233)">
+<include file="public:se_head"/>
+<if condition="$userid eq ''">
+<form method="post" onsubmit="return checkaddform()" action="__APP__/index/index/m/Order/action/GetAllUserOrder">
+<else/>
+<form method="post" onsubmit="return checkaddform()" action="__APP__/index/index/m/Order/action/GetUserOrder">
+</if>
+<select class="searcha" name="type">
+	<if condition="$type eq -1">
+		<option value="-1"   selected="true">所有订单</option>
+	<else/>
+		<option value="-1"  >所有订单</option>
+	</if>
+	<if condition="$type eq 0">
+		<option value="0"  selected="true">未出行订单</option>
+	<else/>
+		<option value="0" >未出行订单</option>
+	</if>
+	<if condition="$type eq 1">
+		<option value="1"  selected="true">已出行订单</option>
+	<else/>
+		<option value="1" >已出行订单</option>
+	</if>
+	<if condition="$type eq 2">
+		<option value="2" selected="true">退票订单</option>
+	<else/>
+		<option value="2">退票订单</option>
+	</if>
+</select>
+<input type="submit" id="publicadd"  value="检索" />
+</form>
+<if condition="count($AllOrderList) neq 0">
+	<table border="1" >
+		<tr id="bartr">
+			<th>用户id</th>
+			<th>订单号</th>
+			<th>金额</th>
+			<th>生成时间</th>
+			<th>起点</th>
+			<th>终点</th>
+			<th>订单类型</th>
+			<th>操作</th>
+		</tr>
+		<foreach name="AllOrderList" item="item_order">
+			<tr>
+				<td>{$item_order.user_id}</td>
+				<td>{$item_order.order_sn}</td>
+				<td>{$item_order.order_money}</td>
+				<td>{$item_order.time}</td>
+				<td>{$item_order.start_point}</td>
+				<td>{$item_order.end_point}</td>
+				<td>{$item_order.order_type}</td>
+				<td>
+				<a href="__APP__/index/index/m/Order/action/DelUserOrder/userid/{$item_order.user_id}/orderid/{$item_order.order_sn}">删除</a>
+				</td>
+			</tr>
+		</foreach>
+	</table>
+	<include file="public:page"/>
+</if>
+</body>
+</html>
